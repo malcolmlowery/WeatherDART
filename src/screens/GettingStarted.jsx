@@ -7,6 +7,7 @@ import { BlurView } from 'expo-blur';
 // Components
 import Text from '../components/Text';
 import Button from '../components/Button';
+import BGGradient from '../components/BGGraident';
 
 const screenHeight = Dimensions.get('screen').height;
 const screenWidth = Dimensions.get('screen').width;
@@ -14,15 +15,7 @@ const screenWidth = Dimensions.get('screen').width;
 const GettingStartedScreen = () => {
     return(
         <Container>
-            <LinearGradient 
-                colors={['#0c0e20', '#0c0c1e']} 
-                style={{ 
-                    flex: 1, 
-                    position: 'absolute', 
-                    height: screenHeight, 
-                    width: screenWidth 
-                }}
-            />
+            <BGGradient />
 
             <BlurView style={{ position: 'absolute', height: screenHeight, width: screenWidth, zIndex: 3 }} intensity={100} tint='dark' />
             <BGImg style={{ top: 180, left: 70 }} source={{ uri: 'https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_12-512.png' }} />
