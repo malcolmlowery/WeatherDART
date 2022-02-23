@@ -8,6 +8,7 @@ const Text = ({
     fontWeight = 600,
     marginTop = 0,
     marginBottom = 0,
+    style,
     }) => {
     return(
         <TextItem 
@@ -16,6 +17,7 @@ const Text = ({
             fontWeight={fontWeight}
             marginTop={marginTop}
             marginBottom={marginBottom}
+            style={style}
             >
             {children}
         </TextItem>
