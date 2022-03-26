@@ -11,7 +11,7 @@ import SignUpScreen from './screens/SignUp';
 const Stack = createNativeStackNavigator();
 
 const Main = () => {
-    const isAuthenticated = false;
+    const isAuthenticated = true;
 
     return(
         <>
