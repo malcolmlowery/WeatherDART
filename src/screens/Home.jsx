@@ -1,21 +1,34 @@
-import React from 'react';
-import { ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { ScrollView, RefreshControl } from 'react-native';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import styled from 'styled-components/native';
-import Text from '../components/Text';
 import BGGradient from '../components/BGGraident';
 import BGBlur from '../components/BGBlur';
+import Text from '../components/Text';
 
 const HomeScreen = () => {
+
+    const [refreshing, setRefreshing] = useState(false);
+    const onRefresh = () => {
+        setRefreshing(true)
+        setTimeout(() => {
+            setRefreshing(false)
+        }, 2000)
+    };
+
+    useEffect(() => {
+        onRefresh()
+    },[])
+
     return(
         <Container>
             <BGGradient />
             <BGBlur showBgImage={false} />
-            <ScrollView style={{ zIndex: 100 }}>
+            <Header>
+                <Text fontSize={13} color='#4B4E68'>Logout</Text>
+            </Header>
+            <ScrollView style={{ zIndex: 100 }} contentInset={{ top: 60 }} refreshControl={<RefreshControl title='Fetching Forcecast...' titleColor={'aliceblue'} tintColor={'aliceblue'} refreshing={refreshing} onRefresh={onRefresh} /> }>
                 <Content>
-                    <Header>
-                        <Text fontSize={13} color='#4B4E68'>Logout</Text>
-                    </Header>
                     <CurrentWeatherContainer>
                         <WeatherIcon source={{ uri: 'https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_24-512.png' }} />
                         <Text fontSize={16} fontWeight='500' marginTop={24}>Currently</Text>
@@ -72,6 +85,8 @@ const Content = styled.View`
 const Header = styled.View`
     margin-top: 60px;
     margin-left: 20px;
+    position: absolute;
+    z-index: 1000;
 `;
 
 const CurrentWeatherContainer = styled.View`
@@ -89,13 +104,14 @@ const Divider = styled.View`
     background-color: #fff;
     border-radius: 3px;
     height: 3px;
-    width: 300px;
     margin: 24px 0;
+    width: 300px;
 `;
 
 const WeatherStatsContainer = styled.View`
     margin-top: 24px;
     min-width: 250px;
+    max-width: 300px;
 `;
 
 const StatsItem = styled.View`
