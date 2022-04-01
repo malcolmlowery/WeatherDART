@@ -13,7 +13,7 @@ const selectWeatherConditions = state => state.weatherConditions;
 const HomeScreen = () => {
     const dispatch = useDispatch();
 
-    const fetchWeather = () => dispatch(fetchWeatherConditions(33064));
+    const fetchWeather = () => dispatch(fetchWeatherConditions('33064'));
     const {
         isLoading,
         data,

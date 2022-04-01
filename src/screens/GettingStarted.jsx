@@ -13,6 +13,7 @@ const GettingStartedScreen = ({ navigation }) => {
             <BGBlur />
 
             <Content style={{ position: 'relative', zIndex: 6 }}>
+                <Text color='white' fontSize={32} marginBottom={20}>WeatherDART</Text>
                 <Img style={{ marginBottom: 75}} source={{ uri: 'https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_25-512.png' }} />
                 
                 <TextContainer style={{ marginBottom: 30}}>
