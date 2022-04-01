@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components/native';
 import { Formik } from 'formik';
 import BGBlur from '../components/BGBlur';
@@ -24,6 +24,8 @@ const SignUpScreen = () => {
                             <FormItem style={{ marginBottom: 20 }}>
                                 <Text fontSize={16} fontWeight='500'>Username:  </Text>
                                 <TextInputItem 
+                                    autoCorrect={false}
+                                    maxLength={18}
                                     onBlur={handleBlur('username')} 
                                     onChangeText={handleChange('username')} 
                                     value={values.username} 

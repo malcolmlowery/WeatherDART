@@ -1,4 +1,3 @@
-import React from 'react';
 import { Dimensions } from 'react-native';
 import { BlurView } from 'expo-blur';
 import styled from 'styled-components/native';

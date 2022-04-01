@@ -1,24 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { ScrollView, RefreshControl } from 'react-native';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import styled from 'styled-components/native';
 import BGGradient from '../components/BGGraident';
 import BGBlur from '../components/BGBlur';
 import Text from '../components/Text';
+import { useEffect } from 'react';
+import { fetchWeatherConditions } from '../data/actions/weather.action';
+
+const selectWeatherConditions = state => state.weatherConditions;
 
 const HomeScreen = () => {
+    const dispatch = useDispatch();
 
-    const [refreshing, setRefreshing] = useState(false);
-    const onRefresh = () => {
-        setRefreshing(true)
-        setTimeout(() => {
-            setRefreshing(false)
-        }, 2000)
-    };
-
+    const fetchWeather = () => dispatch(fetchWeatherConditions(33064));
+    const {
+        isLoading,
+        data,
+        error,
+    } = useSelector(selectWeatherConditions)
+    
+    const {
+        city, 
+        state,
+        dewpointF,
+        feelslikeF,
+        humidity,
+        rainChance,
+        weatherPrimary,
+        windDir,
+        windSpeedMPH,
+    } = data;
+ 
     useEffect(() => {
-        onRefresh()
-    },[])
+        fetchWeather()
+    },[]);
 
     return(
         <Container>
@@ -27,12 +43,17 @@ const HomeScreen = () => {
             <Header>
                 <Text fontSize={13} color='#4B4E68'>Logout</Text>
             </Header>
-            <ScrollView style={{ zIndex: 100 }} contentInset={{ top: 60 }} refreshControl={<RefreshControl title='Fetching Forcecast...' titleColor={'aliceblue'} tintColor={'aliceblue'} refreshing={refreshing} onRefresh={onRefresh} /> }>
+            <ScrollView 
+                style={{ zIndex: 100 }} 
+                contentInset={{ top: 60 }} 
+                refreshControl={
+                    <RefreshControl title='Fetching Forcecast...' titleColor={'aliceblue'} tintColor={'aliceblue'} refreshing={isLoading} onRefresh={() => fetchWeather()} /> 
+                }>
                 <Content>
                     <CurrentWeatherContainer>
                         <WeatherIcon source={{ uri: 'https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_24-512.png' }} />
-                        <Text fontSize={16} fontWeight='500' marginTop={24}>Currently</Text>
-                        <Text color='#e43c63' fontSize={19} fontWeight='700' marginTop={11}>Heavy Thunderstorms</Text>
+                        <Text fontSize={16} fontWeight='500' marginTop={24}>{city}, {state}</Text>
+                        <Text color='#e43c63' fontSize={19} fontWeight='700' marginTop={11}>{weatherPrimary}</Text>
                         <Divider />
                         <Text color='#fff' fontSize={19} fontWeight='600' marginBottom={24}>Chance of Rain</Text>
                         <CircularProgress
@@ -40,29 +61,29 @@ const HomeScreen = () => {
                             maxValue={100} 
                             radius={60}
                             textColor='#fff'
-                            value={92} 
+                            value={rainChance} 
                         />
                         <Text fontSize={16} fontWeight='500' marginTop={24}>Weather Stats</Text>
                         <WeatherStatsContainer>
                             <StatsItem>
                                 <Text fontSize={19}>Temp</Text>
-                                <Text fontSize={19}>84°</Text>
+                                <Text fontSize={19}>{feelslikeF}°</Text>
                             </StatsItem>
                             <StatsItem>
                                 <Text fontSize={19}>Humidity</Text>
-                                <Text fontSize={19}>77%</Text>
+                                <Text fontSize={19}>{humidity}%</Text>
                             </StatsItem>
                             <StatsItem>
                                 <Text fontSize={19}>Dewpoint</Text>
-                                <Text fontSize={19}>61°</Text>
+                                <Text fontSize={19}>{dewpointF}°</Text>
                             </StatsItem>
                             <StatsItem>
                                 <Text fontSize={19}>Wind</Text>
-                                <Text fontSize={19}>13 mph</Text>
+                                <Text fontSize={19}>{windSpeedMPH} mph</Text>
                             </StatsItem>
                             <StatsItem>
                                 <Text fontSize={19}>Wind Direction</Text>
-                                <Text fontSize={19}>SSW</Text>
+                                <Text fontSize={19}>{windDir}</Text>
                             </StatsItem>
                         </WeatherStatsContainer>
                     </CurrentWeatherContainer>
