@@ -26,7 +26,7 @@ const GettingStartedScreen = ({ navigation }) => {
                     <Text color='#d4d6da' fontSize={14} fontWeight={400}>radar percipitation forecast</Text>
                 </TextContainer>
 
-                <Button marginTop={80} onPress={() => navigation.push('SignUp')}>Get Started</Button>
+                <Button marginTop={80} onPress={() => navigation.push('Home')}>Get Started</Button>
             </Content>
         </Container>
     )

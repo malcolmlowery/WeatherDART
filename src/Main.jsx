@@ -28,6 +28,8 @@ const Main = () => {
                         </>
                         :
                         <>
+                            {/* GettingStarted screen is declared here for testing purposes only. Will be removed */}
+                            <Stack.Screen name='GetStarted' component={GettingStartedScreen} />
                             <Stack.Screen name='Home' component={HomeScreen} />
                         </>
                     }
