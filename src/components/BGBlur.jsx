@@ -10,7 +10,7 @@ const BGBlur = ({
 }) => {
     return(
         <>
-            <BlurView style={{ position: 'absolute', height: screenHeight, width: screenWidth, zIndex: 3 }} intensity={100} tint='dark' />
+            <BlurView style={{ position: 'absolute', height: screenHeight + 100, width: screenWidth, zIndex: 3 }} intensity={100} tint='dark' />
             { showBgImage &&
                 <>
                     <BGImg style={{ top: 180, left: 70 }} source={{ uri: 'https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_12-512.png' }} />

@@ -11,8 +11,8 @@ const BGGradient = () => {
             style={{ 
                 flex: 1, 
                 position: 'absolute', 
-                height: screenHeight, 
-                width: screenWidth 
+                height: screenHeight + 100, 
+                width: screenWidth,
             }}
         />
     )

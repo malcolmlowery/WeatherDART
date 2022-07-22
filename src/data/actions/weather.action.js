@@ -1,4 +1,6 @@
-import { AERIS_API_ID, AERIS_API_SECRET } from '@env'; import { FETCH_WEATHER_REQUEST, 
+import { AERIS_API_ID, AERIS_API_SECRET } from '@env'; 
+import { 
+    FETCH_WEATHER_REQUEST, 
     FETCH_WEATHER_SUCCESS, 
     FETCH_WEATHER_FAILURE 
 } from "./index.actions";
@@ -23,7 +25,10 @@ export const fetchWeatherConditions = zipcode => {
         dispatch(fetchWeatherRequest())
         await fetch(`https://api.aerisapi.com/batch/${zipcode}?requests=/places,/conditions,/threats,/alerts,/&client_id=${AERIS_API_ID}&client_secret=${AERIS_API_SECRET}`)
             .then(response => response.json())
-            .then(data => dispatch(fetchWeatherSuccess(data.response)))
+            .then(data => {
+                console.log(data)
+                return dispatch(fetchWeatherSuccess(data.response))
+            })
             .catch(error => dispatch(fetchWeatherFailure(error)))
     }
 };
