@@ -1,0 +1,19 @@
+.button-container {
+  background-color: #5152f4;
+  display: flex;
+}
+
+.button-container__button {
+  background: none;
+  border: none;
+  color: #fff;
+  flex: 1;
+}
+
+.button-container__button__text {
+  font-size: 0.9rem;
+}
+
+.button-container__button:hover {
+  cursor: pointer;
+}

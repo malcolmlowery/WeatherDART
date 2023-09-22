@@ -1,0 +1,13 @@
+.checkbox-container {
+  display: flex;
+}
+
+.checkbox-container__label {
+  margin-left: 6px;
+}
+
+.checkbox-container__checkbox {
+  margin-left: 0;
+  position: relative;
+  top: 0.5px;
+}

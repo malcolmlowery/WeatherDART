@@ -14,3 +14,26 @@ h5,
 h6 {
   margin: 0;
 }
+
+body {
+  background-color: #f4f7f9;
+}
+
+.button {
+  border: none;
+  border-radius: 3px;
+  background-color: #5152f4;
+  color: #fff;
+  padding: 8px 16px;
+}
+
+.button--clear {
+  border: none;
+  background-color: transparent;
+  color: #5152f4;
+  padding: 0;
+}
+
+.button:hover {
+  cursor: pointer;
+}

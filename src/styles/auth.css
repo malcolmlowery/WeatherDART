@@ -1,0 +1,41 @@
+.auth-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+.auth-container__left-side {
+  background-color: #5152f4;
+  flex: 1;
+}
+
+.auth-container__right-side {
+  align-items: center;
+  background-color: #fefefe;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+
+.auth-container__right-side__content {
+  width: 50%;
+}
+
+.auth-container__right-side__content_title {
+  font-size: 3rem;
+}
+
+.auth-container__right-side__content__form {
+  margin-top: 46px;
+}
+
+.auth-container__right-side__content__form__item__remember-forgot {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 56px;
+}
+
+.auth-container__right-side__content__account {
+  margin-top: 20px;
+}
