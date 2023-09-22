@@ -4,8 +4,8 @@ import Dashboard from './pages/dashboard';
 import Settings from './pages/settings';
 
 const router = createBrowserRouter([
-  { path: '/', element: <Dashboard /> },
-  { path: '/auth', element: <AuthPage /> },
+  { path: '/', element: <AuthPage /> },
+  { path: '/dashboard', element: <Dashboard /> },
   { path: '/settings', element: <Settings /> },
 ]);
 
