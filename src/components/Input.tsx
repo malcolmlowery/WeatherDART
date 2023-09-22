@@ -4,7 +4,7 @@ import './c_styles/input.component.css';
 interface InputI {
   htmlFor: string;
   label: string;
-  type: 'password' | 'email';
+  type: 'text' | 'password' | 'email';
   value: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
 }

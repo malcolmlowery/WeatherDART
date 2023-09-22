@@ -39,3 +39,9 @@
 .auth-container__right-side__content__account {
   margin-top: 20px;
 }
+
+.auth-container__right-side__content__account a {
+  color: #5152f4;
+  font-weight: 500;
+  text-decoration: none;
+}
