@@ -5,24 +5,46 @@ import Input from '../components/Input';
 import './p_styles/auth.page.css';
 
 const AuthPage = () => {
-  const [createAccount, setCreateAccount] = useState(true);
+  const [createAccount, setCreateAccount] = useState(false);
 
   return (
     <div className='auth-container'>
       <div className='auth-container__left-side'>
         <div className='auth-container__left-side__bg-image'></div>
+        <div className='auth-container__left-side__content'>
+          <h1 className='auth-container__left-side__content__title'>
+            WeatherDART
+          </h1>
+          <p className='auth-container__left-side__content__description'>
+            A all-in-one weather website, offering a comprehensive view of past,
+            present, and future weather conditions, complete with real-time
+            weather alerts for the entire United States!
+          </p>
+        </div>
       </div>
 
       <div className='auth-container__right-side'>
         <div className='auth-container__right-side__content'>
-          <h1 className='auth-container__right-side__content_title'>
+          <h1 className='auth-container__right-side__content__title'>
+            WeatherDART
+          </h1>
+
+          <hr
+            color='#5152f4'
+            className='auth-container__right-side__content__line-divider'
+          />
+          <h1 className='auth-container__right-side__content__text'>
             {createAccount ? 'Sign Up' : 'Login'}
           </h1>
 
           {createAccount ? (
-            <p>Provide the following information to get started!</p>
+            <p className='auth-container__right-side__content__text'>
+              Provide the following information to get started!
+            </p>
           ) : (
-            <p>Please log in to access your account</p>
+            <p className='auth-container__right-side__content__text'>
+              Please log in to access your account
+            </p>
           )}
 
           <form className='auth-container__right-side__content__form'>

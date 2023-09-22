@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import AuthPage from './pages/auth';
-import Dashboard from './pages/dashboard';
-import Settings from './pages/settings';
+import AuthPage from './pages/auth.page';
+import Dashboard from './pages/dashboard.page';
+import Settings from './pages/settings.page';
 
 const router = createBrowserRouter([
   { path: '/', element: <AuthPage /> },
