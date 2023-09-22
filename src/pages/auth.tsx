@@ -9,7 +9,10 @@ const AuthPage = () => {
 
   return (
     <div className='auth-container'>
-      <div className='auth-container__left-side'></div>
+      <div className='auth-container__left-side'>
+        <div className='auth-container__left-side__bg-image'></div>
+      </div>
+
       <div className='auth-container__right-side'>
         <div className='auth-container__right-side__content'>
           <h1 className='auth-container__right-side__content_title'>
