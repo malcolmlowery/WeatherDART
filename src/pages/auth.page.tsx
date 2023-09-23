@@ -1,11 +1,40 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+
+// Components and Styles
 import Button from '../components/Button';
 import Checkbox from '../components/Checkbox';
 import Input from '../components/Input';
 import './p_styles/auth.page.css';
 
+// Types
+import { UserAuthCredentialsI } from '../types/user.interface';
+
 const AuthPage = () => {
+  const navigate = useNavigate();
   const [createAccount, setCreateAccount] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const [userInfo, setUserInfo] = useState<UserAuthCredentialsI>({
+    email: '',
+    password: '',
+    zipcode: '',
+    remember_user: false,
+  });
+
+  const submitForm = () => {
+    if (createAccount) {
+      return;
+    } else {
+      return navigate('/dashboard', { replace: true });
+    }
+  };
 
   return (
     <div className='auth-container'>
@@ -47,30 +76,45 @@ const AuthPage = () => {
             </p>
           )}
 
-          <form className='auth-container__right-side__content__form'>
+          <form
+            className='auth-container__right-side__content__form'
+            onSubmit={handleSubmit(submitForm)}
+          >
             <Input
+              errors={errors}
               htmlFor='email'
               label='Email'
               type='email'
-              onChange={(e) => console.log(e.target.value)}
-              value='malcolmlowery.developer@gmail.com'
+              onChange={(e) =>
+                setUserInfo({ ...userInfo, email: e.target.value })
+              }
+              register={register}
+              value={userInfo.email}
             />
 
             <Input
+              errors={errors}
               htmlFor='password'
               label='Password'
               type='password'
-              onChange={(e) => console.log(e.target.value)}
-              value='1234567890'
+              onChange={(e) =>
+                setUserInfo({ ...userInfo, password: e.target.value })
+              }
+              register={register}
+              value={userInfo.password}
             />
 
             {createAccount && (
               <Input
+                errors={errors}
                 htmlFor='zipcode'
                 label='Zip code'
-                type='text'
-                onChange={(e) => console.log(e.target.value)}
-                value='46226'
+                type='number'
+                onChange={(e) =>
+                  setUserInfo({ ...userInfo, zipcode: e.target.value })
+                }
+                register={register}
+                value={userInfo.zipcode}
               />
             )}
 
@@ -78,35 +122,37 @@ const AuthPage = () => {
               <Checkbox
                 htmlFor='remeber_me'
                 label='Remember me'
-                onChange={(e) => console.log(e.target.value)}
-                value='true'
+                onChange={(e) =>
+                  setUserInfo({
+                    ...userInfo,
+                    remember_user: e.target.checked,
+                  })
+                }
+                checked={userInfo.remember_user}
+                register={register}
               />
 
               {!createAccount && (
-                <button className='button button--clear'>
+                <button className='button button--clear' type='submit'>
                   Forgot Password
                 </button>
               )}
             </div>
 
-            <Button>{createAccount ? 'Sign Up' : 'Login'}</Button>
+            <Button type='submit'>{createAccount ? 'Sign Up' : 'Login'}</Button>
           </form>
 
           {!createAccount && (
             <p className='auth-container__right-side__content__account'>
               Don't have an account?{' '}
-              <a href='#' onClick={() => setCreateAccount(!createAccount)}>
-                Sign Up
-              </a>
+              <a onClick={() => setCreateAccount(!createAccount)}>Sign Up</a>
             </p>
           )}
 
           {createAccount && (
             <p className='auth-container__right-side__content__account'>
               Have an account?{' '}
-              <a href='#' onClick={() => setCreateAccount(!createAccount)}>
-                Log in
-              </a>
+              <a onClick={() => setCreateAccount(!createAccount)}>Log in</a>
             </p>
           )}
         </div>

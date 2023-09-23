@@ -5,14 +5,21 @@ interface ButtonI {
   disabled?: boolean;
   children: React.ReactNode;
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  type?: 'button' | 'submit' | 'reset';
 }
 
-const Button = ({ disabled = false, children, onClick }: ButtonI) => {
+const Button = ({
+  disabled = false,
+  children,
+  onClick,
+  type = 'button',
+}: ButtonI) => {
   return (
     <div className='button-container'>
       <button
         disabled={disabled}
         onClick={onClick}
+        type={type}
         className='button-container__button'
       >
         <p className='button-container__button__text'>{children}</p>

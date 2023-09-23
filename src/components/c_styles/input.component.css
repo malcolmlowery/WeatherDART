@@ -9,6 +9,14 @@
   font-size: 1rem;
 }
 
+.input-container__warning {
+  color: #f44336;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
 .input-container__input {
   border: 1px #d2d2d2 solid;
   font-size: 1rem;

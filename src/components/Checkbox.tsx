@@ -1,21 +1,23 @@
 import { ChangeEventHandler } from 'react';
 import './c_styles/checkbox.component.css';
+import { UseFormHookI } from '../types/errors.interface';
 
 interface CheckboxI {
-  value: string;
-  htmlFor?: string;
+  checked: boolean;
+  htmlFor: string;
   label?: string;
   reverseOrder?: 'checkbox-first' | 'label-first';
   onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
 const Checkbox = ({
+  checked,
   htmlFor,
   label,
   onChange,
   reverseOrder = 'checkbox-first',
-  value,
-}: CheckboxI) => {
+  register,
+}: CheckboxI & UseFormHookI) => {
   return (
     <div
       className='checkbox-container'
@@ -30,11 +32,12 @@ const Checkbox = ({
         </label>
       )}
       <input
+        {...register(htmlFor, { required: false })}
         className='checkbox-container__checkbox'
+        checked={checked}
         id={htmlFor}
         onChange={onChange}
         type='checkbox'
-        value={value}
       />
     </div>
   );
