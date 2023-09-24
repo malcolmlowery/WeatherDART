@@ -203,6 +203,7 @@ const AuthPage = () => {
                 />
 
                 <Button
+                  disabled={accountVerified}
                   style={{ marginTop: 50 }}
                   status={accountVerified ? 'success' : 'normal'}
                   type='submit'
