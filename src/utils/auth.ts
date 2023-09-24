@@ -16,7 +16,6 @@ export const signUp = (email: string, password: string) => {
         reject(err);
         return;
       } else {
-        console.log(result?.user);
         resolve(result?.user);
       }
     });
