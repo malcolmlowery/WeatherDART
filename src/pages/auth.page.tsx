@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { BaseSyntheticEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
@@ -10,10 +10,14 @@ import './p_styles/auth.page.css';
 
 // Types
 import { UserAuthCredentialsI } from '../types/user.interface';
+import { confirmSignUp, signUp } from '../utils/auth';
 
 const AuthPage = () => {
   const navigate = useNavigate();
   const [createAccount, setCreateAccount] = useState(false);
+  const [userAccountCreated, setUserAccountCreated] = useState(false);
+  const [verificationCode, setVerificationCode] = useState('');
+  const [accountVerified, setAccountVerified] = useState(false);
 
   const {
     register,
@@ -28,11 +32,29 @@ const AuthPage = () => {
     remember_user: false,
   });
 
-  const submitForm = () => {
-    if (createAccount) {
-      return;
-    } else {
-      return navigate('/dashboard', { replace: true });
+  const submitForm = async () => {
+    const { email, password } = userInfo;
+
+    try {
+      if (createAccount) {
+        await signUp(email, password);
+        setUserAccountCreated(true);
+        return;
+      } else {
+        return navigate('/dashboard', { replace: true });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleConfirmSignup = async (e: BaseSyntheticEvent) => {
+    e.preventDefault();
+    try {
+      await confirmSignUp(userInfo.email, verificationCode);
+      setAccountVerified(true);
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -62,26 +84,46 @@ const AuthPage = () => {
             color='#5152f4'
             className='auth-container__right-side__content__line-divider'
           />
-          <h1 className='auth-container__right-side__content__text'>
-            {createAccount ? 'Sign Up' : 'Login'}
-          </h1>
 
-          {createAccount ? (
+          {userAccountCreated ? (
+            <h1 className='auth-container__right-side__content__text'>
+              Confirm Sign Up
+            </h1>
+          ) : (
+            <h1 className='auth-container__right-side__content__text'>
+              {createAccount ? 'Sign Up' : 'Login'}
+            </h1>
+          )}
+
+          {userAccountCreated ? (
             <p className='auth-container__right-side__content__text'>
-              Provide the following information to get started!
+              Please provide the verification code that was sent to your email.
             </p>
           ) : (
-            <p className='auth-container__right-side__content__text'>
-              Please log in to access your account
-            </p>
+            <>
+              {createAccount ? (
+                <p className='auth-container__right-side__content__text'>
+                  Provide the following information to get started!
+                </p>
+              ) : (
+                <p className='auth-container__right-side__content__text'>
+                  Please log in to access your account
+                </p>
+              )}
+            </>
           )}
 
           <form
             className='auth-container__right-side__content__form'
-            onSubmit={handleSubmit(submitForm)}
+            onSubmit={
+              userAccountCreated
+                ? handleConfirmSignup
+                : handleSubmit(submitForm)
+            }
           >
             <Input
               errors={errors}
+              disabled={userAccountCreated}
               htmlFor='email'
               label='Email'
               type='email'
@@ -92,68 +134,103 @@ const AuthPage = () => {
               value={userInfo.email}
             />
 
-            <Input
-              errors={errors}
-              htmlFor='password'
-              label='Password'
-              type='password'
-              onChange={(e) =>
-                setUserInfo({ ...userInfo, password: e.target.value })
-              }
-              register={register}
-              value={userInfo.password}
-            />
+            {!userAccountCreated && (
+              <>
+                <Input
+                  errors={errors}
+                  htmlFor='password'
+                  label='Password'
+                  type='password'
+                  onChange={(e) =>
+                    setUserInfo({ ...userInfo, password: e.target.value })
+                  }
+                  register={register}
+                  value={userInfo.password}
+                />
 
-            {createAccount && (
-              <Input
-                errors={errors}
-                htmlFor='zipcode'
-                label='Zip code'
-                type='number'
-                onChange={(e) =>
-                  setUserInfo({ ...userInfo, zipcode: e.target.value })
-                }
-                register={register}
-                value={userInfo.zipcode}
-              />
+                {createAccount && (
+                  <Input
+                    errors={errors}
+                    htmlFor='zipcode'
+                    label='Zip code'
+                    type='number'
+                    onChange={(e) =>
+                      setUserInfo({ ...userInfo, zipcode: e.target.value })
+                    }
+                    register={register}
+                    value={userInfo.zipcode}
+                  />
+                )}
+
+                <div className='auth-container__right-side__content__form__item__remember-forgot'>
+                  <Checkbox
+                    htmlFor='remeber_me'
+                    label='Remember me'
+                    onChange={(e) =>
+                      setUserInfo({
+                        ...userInfo,
+                        remember_user: e.target.checked,
+                      })
+                    }
+                    checked={userInfo.remember_user}
+                    register={register}
+                  />
+
+                  {!createAccount && (
+                    <button className='button button--clear' type='submit'>
+                      Forgot Password
+                    </button>
+                  )}
+                </div>
+
+                <Button type='submit' status='normal'>
+                  {createAccount ? 'Sign Up' : 'Login'}
+                </Button>
+              </>
             )}
 
-            <div className='auth-container__right-side__content__form__item__remember-forgot'>
-              <Checkbox
-                htmlFor='remeber_me'
-                label='Remember me'
-                onChange={(e) =>
-                  setUserInfo({
-                    ...userInfo,
-                    remember_user: e.target.checked,
-                  })
-                }
-                checked={userInfo.remember_user}
-                register={register}
-              />
+            {userAccountCreated && (
+              <>
+                <Input
+                  errors={errors}
+                  disabled={accountVerified}
+                  htmlFor='code'
+                  label='Code'
+                  type='number'
+                  onChange={(e) => setVerificationCode(e.target.value)}
+                  register={register}
+                  value={verificationCode}
+                />
 
-              {!createAccount && (
-                <button className='button button--clear' type='submit'>
-                  Forgot Password
-                </button>
-              )}
-            </div>
-
-            <Button type='submit'>{createAccount ? 'Sign Up' : 'Login'}</Button>
+                <Button
+                  style={{ marginTop: 50 }}
+                  status={accountVerified ? 'success' : 'normal'}
+                  type='submit'
+                >
+                  {accountVerified ? 'Account Verified!' : 'Confirm Code'}
+                </Button>
+              </>
+            )}
           </form>
 
-          {!createAccount && (
-            <p className='auth-container__right-side__content__account'>
-              Don't have an account?{' '}
-              <a onClick={() => setCreateAccount(!createAccount)}>Sign Up</a>
-            </p>
-          )}
+          {!userAccountCreated && (
+            <>
+              {!createAccount && (
+                <p className='auth-container__right-side__content__account'>
+                  Don't have an account?{' '}
+                  <a onClick={() => setCreateAccount(!createAccount)}>
+                    Sign Up
+                  </a>
+                </p>
+              )}
 
-          {createAccount && (
-            <p className='auth-container__right-side__content__account'>
-              Have an account?{' '}
-              <a onClick={() => setCreateAccount(!createAccount)}>Log in</a>
-            </p>
+              {createAccount && (
+                <p className='auth-container__right-side__content__account'>
+                  Have an account?{' '}
+                  <a onClick={() => setCreateAccount(!createAccount)}>Log in</a>
+                </p>
+              )}
+            </>
           )}
         </div>
       </div>

@@ -3,6 +3,7 @@ import './c_styles/input.component.css';
 import { UseFormHookI } from '../types/errors.interface';
 
 interface InputI {
+  disabled?: boolean;
   htmlFor: string;
   label: string;
   type: 'text' | 'password' | 'email' | 'number';
@@ -12,6 +13,7 @@ interface InputI {
 
 const Input = ({
   errors,
+  disabled = false,
   htmlFor,
   label,
   onChange,
@@ -19,7 +21,6 @@ const Input = ({
   register,
   value,
 }: InputI & UseFormHookI) => {
-  console.log(htmlFor);
   return (
     <div className='input-container'>
       <label className='input-container__label' htmlFor={htmlFor}>
@@ -29,6 +30,7 @@ const Input = ({
       <input
         {...register(htmlFor, { required: `Please enter a valid ${htmlFor}` })}
         className='input-container__input'
+        disabled={disabled}
         id={htmlFor}
         onChange={onChange}
         type={type}

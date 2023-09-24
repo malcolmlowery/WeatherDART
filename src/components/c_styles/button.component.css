@@ -1,6 +1,13 @@
 .button-container {
-  background-color: #5152f4;
   display: flex;
+}
+
+.button-container--normal {
+  background-color: #5152f4;
+}
+
+.button-container--success {
+  background-color: #4bb543;
 }
 
 .button-container__button {
