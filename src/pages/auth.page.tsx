@@ -52,7 +52,12 @@ const AuthPage = () => {
   const handleConfirmSignup = async (e: BaseSyntheticEvent) => {
     e.preventDefault();
     try {
-      await confirmSignUp(userInfo.email, verificationCode);
+      const { email, password } = userInfo;
+      await confirmSignUp(userInfo.email, verificationCode).then(() => {
+        setTimeout(async () => {
+          await signIn(email, password);
+        }, 2000);
+      });
       setAccountVerified(true);
     } catch (err) {
       console.error(err);
