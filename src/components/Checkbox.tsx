@@ -1,6 +1,6 @@
 import { ChangeEventHandler } from 'react';
 import './c_styles/checkbox.component.css';
-import { UseFormHookI } from '../types/errors.interface';
+import { UseFormHookI } from '../types/form.interface';
 
 interface CheckboxI {
   checked: boolean;

@@ -1,7 +1,7 @@
 import {
   CognitoUserPool,
   CognitoUser,
-  //   AuthenticationDetails,
+  AuthenticationDetails,
 } from 'amazon-cognito-identity-js';
 
 const userPool = new CognitoUserPool({
@@ -40,7 +40,25 @@ export const confirmSignUp = (email: string, code: string) => {
   });
 };
 
-// export const signIn = (email: string, password: string) => {};
+export const signIn = (email: string, password: string) => {
+  return new Promise((resolve, reject) => {
+    const authenicationDetails = new AuthenticationDetails({
+      Username: email,
+      Password: password,
+    });
+
+    const cognitoUser = new CognitoUser({ Username: email, Pool: userPool });
+
+    cognitoUser.authenticateUser(authenicationDetails, {
+      onSuccess: (result) => {
+        resolve(result);
+      },
+      onFailure: (err) => {
+        reject(err);
+      },
+    });
+  });
+};
 
 // export const forgotPassword = (email: string) => {};
 
@@ -50,8 +68,65 @@ export const confirmSignUp = (email: string, code: string) => {
 //   code: string,
 // ) => {};
 
-// export const signout = () => {};
+export const signOut = () => {
+  const cognitoUser = userPool.getCurrentUser();
+  if (cognitoUser) {
+    cognitoUser.signOut();
+  }
+};
 
-// export const getCurrentUser = () => {};
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const cognitoUser = userPool.getCurrentUser();
 
-// export const getSession = () => {};
+    if (!cognitoUser) {
+      reject(new Error('No user found'));
+      return;
+    }
+
+    cognitoUser.getSession((err: Error) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+
+      cognitoUser.getSession((err: Error) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        cognitoUser.getUserAttributes((err, attributes) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          const userDetails = attributes?.reduce((acc, attribute) => {
+            return { ...acc, [attribute.Name]: attribute.Value };
+          }, {});
+
+          resolve({ ...userDetails });
+        });
+      });
+    });
+  });
+};
+
+export const getSession = () => {
+  const congnitoUser = userPool.getCurrentUser();
+  return new Promise((resolve, reject) => {
+    if (!congnitoUser) {
+      reject(new Error('No user found'));
+    } else {
+      congnitoUser.getSession((err: Error, session: null) => {
+        if (err) {
+          reject(err);
+          return;
+        } else {
+          resolve(session);
+        }
+      });
+    }
+  });
+};

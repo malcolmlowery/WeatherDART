@@ -1,6 +1,6 @@
 import { ChangeEventHandler } from 'react';
 import './c_styles/input.component.css';
-import { UseFormHookI } from '../types/errors.interface';
+import { UseFormHookI } from '../types/form.interface';
 
 interface InputI {
   disabled?: boolean;

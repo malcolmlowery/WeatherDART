@@ -1,6 +1,8 @@
-import { BaseSyntheticEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { BaseSyntheticEvent, useContext, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { AuthContext } from '../context/AuthContext';
+import { confirmSignUp } from '../utils/auth';
 
 // Components and Styles
 import Button from '../components/Button';
@@ -10,20 +12,13 @@ import './p_styles/auth.page.css';
 
 // Types
 import { UserAuthCredentialsI } from '../types/user.interface';
-import { confirmSignUp, signUp } from '../utils/auth';
 
 const AuthPage = () => {
-  const navigate = useNavigate();
+  const { user, signIn, signUp } = useContext(AuthContext);
   const [createAccount, setCreateAccount] = useState(false);
   const [userAccountCreated, setUserAccountCreated] = useState(false);
   const [verificationCode, setVerificationCode] = useState('');
   const [accountVerified, setAccountVerified] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
 
   const [userInfo, setUserInfo] = useState<UserAuthCredentialsI>({
     email: '',
@@ -32,19 +27,25 @@ const AuthPage = () => {
     remember_user: false,
   });
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   const submitForm = async () => {
     const { email, password } = userInfo;
-
     try {
       if (createAccount) {
         await signUp(email, password);
         setUserAccountCreated(true);
         return;
       } else {
-        return navigate('/dashboard', { replace: true });
+        await signIn(email, password);
+        return;
       }
     } catch (err) {
-      console.error(err);
+      console.log(err);
     }
   };
 
@@ -57,6 +58,10 @@ const AuthPage = () => {
       console.error(err);
     }
   };
+
+  if (user) {
+    return <Navigate to='/dashboard' />;
+  }
 
   return (
     <div className='auth-container'>
