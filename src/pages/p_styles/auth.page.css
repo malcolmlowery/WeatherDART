@@ -60,7 +60,7 @@
 }
 
 .auth-container__left-side__bg-image {
-  background-image: url('../../assets/images/weather-rain-bg-image-01.jpg');
+  background-image: url('../../../assets/images/weather-rain-bg-image-01.jpg');
   background-size: cover;
   filter: opacity(0.2);
   height: 100%;

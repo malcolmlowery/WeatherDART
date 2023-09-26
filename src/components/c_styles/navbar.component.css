@@ -10,13 +10,13 @@
   max-width: 1000px;
 }
 
-.top-navbar__items {
+.top-navbar__content__items {
   display: flex;
   margin: 0;
   padding: 0;
 }
 
-.top-navbar__items__item {
+.top-navbar__content__items__item {
   list-style-type: none;
 }
 
@@ -24,16 +24,16 @@
   flex: 1;
 }
 
-.top-navbar__searchbar {
+.top-navbar__content__searchbar {
   align-items: center;
   background-color: #f0f0f0;
   border-radius: 25px;
   display: flex;
   margin-left: 24px;
-  padding: 0.5rem 1rem;
+  padding: 0.65rem 1rem;
 }
 
-.top-navbar__searchbar__input {
+.top-navbar__content__searchbar__input {
   border: none;
   background-color: transparent;
   font-size: 0.85rem;
@@ -41,8 +41,14 @@
   outline: none;
 }
 
-.top-navbar__searchbar__icon {
-  align-items: center;
-  display: flex;
-  justify-content: center;
+.top-navbar__content__searchbar__button {
+  border: none;
+  color: #afafaf;
+  height: 100%;
+  padding-right: 5px;
+}
+
+.top-navbar__content__searchbar__button--enabled {
+  color: #000;
+  cursor: pointer;
 }
