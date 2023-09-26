@@ -3,3 +3,25 @@
   padding: 1rem;
   max-width: 1000px;
 }
+
+.dashboard__current-weather {
+  background-color: #fff;
+  border-radius: 1rem;
+  display: flex;
+  overflow: hidden;
+}
+
+.dashboard__current-weather__stats {
+  padding: 1rem;
+  margin-inline: auto;
+}
+
+.dashboard__current-weather__stats > * {
+  margin: 0;
+}
+
+@media only screen and (max-width: 800px) {
+  .dashboard__current-weather {
+    flex-direction: column;
+  }
+}
