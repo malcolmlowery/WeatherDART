@@ -7,17 +7,62 @@
 .dashboard__current-weather {
   background-color: #fff;
   border-radius: 1rem;
+  box-shadow: 0px 16px 30px rgba(0, 0, 0, 0.05);
   display: flex;
   overflow: hidden;
 }
 
 .dashboard__current-weather__stats {
-  padding: 1rem;
-  margin-inline: auto;
+  flex: 1;
+  padding: 1.5rem;
 }
 
-.dashboard__current-weather__stats > * {
+.dashboard__current-weather__stats * {
   margin: 0;
+}
+
+.dashboard__current-weather__stats__header {
+  text-align: center;
+}
+
+.dashboard__current-weather__stats__header__city-state-name {
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.dashboard__current-weather__stats__header__temp {
+}
+
+.dashboard__current-weather__stats__condition-outside {
+  font-weight: 400;
+  margin: 1rem 0;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.dashboard__current-weather__stats__details {
+  display: flex;
+}
+
+.dashboard__current-weather__stats__details p {
+  font-size: 14px;
+  padding: 0.5rem 0.5rem;
+}
+
+.dashboard__current-weather__stats__details__left-side {
+  flex: 1;
+}
+
+.dashboard__current-weather__stats__details__left-side p:nth-child(odd) {
+  background-color: rgb(242, 242, 242);
+}
+
+.dashboard__current-weather__stats__details__right-side {
+  flex: 1;
+}
+
+.dashboard__current-weather__stats__details__right-side > p:nth-child(even) {
+  background-color: rgb(242, 242, 242);
 }
 
 @media only screen and (max-width: 800px) {
