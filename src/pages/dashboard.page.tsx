@@ -1,15 +1,14 @@
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import './p_styles/dashboard.page.css';
 
 const Dashboard = () => {
-  const { user, signOut } = useContext(AuthContext);
-
+  const { user } = useContext(AuthContext);
   return (
-    <>
-      <h1>Welcome user {user?.email}</h1>
-      <h3>Dashboard Page</h3>
-      <button onClick={signOut}>Sign Out</button>
-    </>
+    <div className='dashboard'>
+      <h1>Hello!</h1>
+      <p>Signed in with email: {user?.email}</p>
+    </div>
   );
 };
 

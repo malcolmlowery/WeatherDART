@@ -1,9 +1,15 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from './context/AuthContext';
+import RouteGuard from './RouteGuard';
+
+// Pages
 import AuthPage from './pages/auth.page';
 import Dashboard from './pages/dashboard.page';
 import Settings from './pages/settings.page';
-import { AuthProvider } from './context/AuthContext';
-import RouteGuard from './RouteGuard';
+
+// Components
+import Navbar from './components/Navbar';
 
 const router = createBrowserRouter([
   { path: '/', element: <AuthPage /> },
@@ -26,10 +32,12 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
+  const { user } = useContext(AuthContext);
   return (
-    <AuthProvider>
+    <>
+      {user && <Navbar />}
       <RouterProvider router={router} />
-    </AuthProvider>
+    </>
   );
 };
 

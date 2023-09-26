@@ -1,0 +1,48 @@
+.top-navbar {
+  background-color: #fff;
+}
+
+.top-navbar__content {
+  align-items: center;
+  display: flex;
+  margin-inline: auto;
+  padding: 1rem;
+  max-width: 1000px;
+}
+
+.top-navbar__items {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.top-navbar__items__item {
+  list-style-type: none;
+}
+
+#spacer {
+  flex: 1;
+}
+
+.top-navbar__searchbar {
+  align-items: center;
+  background-color: #f0f0f0;
+  border-radius: 25px;
+  display: flex;
+  margin-left: 24px;
+  padding: 0.5rem 1rem;
+}
+
+.top-navbar__searchbar__input {
+  border: none;
+  background-color: transparent;
+  font-size: 0.85rem;
+  font-weight: 500;
+  outline: none;
+}
+
+.top-navbar__searchbar__icon {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
